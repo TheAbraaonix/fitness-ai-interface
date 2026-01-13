@@ -1,0 +1,133 @@
+<div class="register-container">
+  <div class="register-card">
+    <h1>Cadastro de Usuário</h1>
+    <p class="subtitle">Preencha os dados abaixo</p>
+
+    <!-- Mensagens -->
+    <div class="alert alert-success" *ngIf="successMessage">
+      ✅ {{ successMessage }}
+    </div>
+
+    <div class="alert alert-error" *ngIf="errorMessage">
+      ❌ {{ errorMessage }}
+    </div>
+
+    <!-- Formulário -->
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      
+      <h3>Dados Básicos</h3>
+      
+      <div class="form-group">
+        <label for="name">Nome completo *</label>
+        <input 
+          id="name" 
+          type="text" 
+          formControlName="name"
+          placeholder="Seu nome completo"
+        />
+        <span class="error" *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+          Nome deve ter no mínimo 3 caracteres
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email *</label>
+        <input 
+          id="email" 
+          type="email" 
+          formControlName="email"
+          placeholder="seu@email.com"
+        />
+        <span class="error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+          Email inválido
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Senha *</label>
+        <input 
+          id="password" 
+          type="password" 
+          formControlName="password"
+          placeholder="Mínimo 6 caracteres"
+        />
+        <span class="error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+          Senha deve ter no mínimo 6 caracteres
+        </span>
+      </div>
+
+      <h3>Dados Físicos (opcional)</h3>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="age">Idade</label>
+          <input 
+            id="age" 
+            type="number" 
+            formControlName="age"
+            placeholder="25"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="weight">Peso (kg)</label>
+          <input 
+            id="weight" 
+            type="number" 
+            step="0.1"
+            formControlName="weight"
+            placeholder="70.0"
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="height">Altura (m)</label>
+          <input 
+            id="height" 
+            type="number" 
+            step="0.01"
+            formControlName="height"
+            placeholder="1.75"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="days">Dias/semana</label>
+          <input 
+            id="days" 
+            type="number" 
+            formControlName="availableDaysPerWeek"
+            placeholder="3"
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="goal">Objetivo</label>
+        <select id="goal" formControlName="fitnessGoal">
+          <option value="">Selecione...</option>
+          <option *ngFor="let goal of fitnessGoals" [value]="goal.value">
+            {{ goal.label }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="level">Nível</label>
+        <select id="level" formControlName="fitnessLevel">
+          <option value="">Selecione...</option>
+          <option *ngFor="let level of fitnessLevels" [value]="level.value">
+            {{ level.label }}
+          </option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="loading">
+        <span *ngIf="!loading">Cadastrar</span>
+        <span *ngIf="loading">Cadastrando...</span>
+      </button>
+    </form>
+  </div>
+</div>
