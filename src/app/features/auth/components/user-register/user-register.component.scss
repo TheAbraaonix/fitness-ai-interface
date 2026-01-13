@@ -1,118 +1,176 @@
+@use '../../../../../styles/variables' as *;
+
 .register-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 2rem 1rem;
+  background: linear-gradient(135deg, $secondary 0%, $secondary-dark 100%);
+  padding: $spacing-lg;
 }
 
 .register-card {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  padding: 2.5rem;
-  width: 100%;
+  background: $bg-card;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-lg;
+  padding: $spacing-xxl;
   max-width: 600px;
+  width: 100%;
+  animation: slideUp 0.5s ease;
 
   h1 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 0.5rem;
+    color: $dark;
+    font-size: $font-size-xxl;
+    font-weight: 700;
+    margin: 0 0 $spacing-sm 0;
+    text-align: center;
   }
 
   .subtitle {
-    color: #666;
-    margin-bottom: 2rem;
+    color: $gray;
+    text-align: center;
+    margin: 0 0 $spacing-xl 0;
+    font-size: $font-size-md;
   }
 
   h3 {
-    font-size: 1.25rem;
-    color: #333;
-    margin: 2rem 0 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid #f0f0f0;
+    color: $secondary;
+    font-size: $font-size-lg;
+    font-weight: 600;
+    margin: $spacing-xl 0 $spacing-md 0;
+    padding-bottom: $spacing-sm;
+    border-bottom: 2px solid $gray-lighter;
   }
 }
 
+// Alerts
 .alert {
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  font-weight: 500;
+  padding: $spacing-md;
+  border-radius: $radius-md;
+  margin-bottom: $spacing-lg;
+  font-size: $font-size-sm;
+  animation: fadeIn 0.3s ease;
 
-  &.alert-success {
-    background: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+  &-success {
+    background: color-mix(in srgb, $success 20%, white);
+    color: color-mix(in srgb, $success 80%, black);
+    border-left: 4px solid $success;
   }
 
-  &.alert-error {
-    background: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
+  &-error {
+    background: color-mix(in srgb, $error 15%, white);
+    color: color-mix(in srgb, $error 80%, black);
+    border-left: 4px solid $error;
   }
 }
 
+// Form groups
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: $spacing-lg;
 
   label {
     display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: #333;
+    margin-bottom: $spacing-xs;
+    font-weight: 600;
+    color: $dark;
+    font-size: $font-size-sm;
   }
 
   input, select {
     width: 100%;
-    padding: 0.75rem;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s;
+    padding: $spacing-md;
+    border: 2px solid $gray-light;
+    border-radius: $radius-md;
+    font-size: $font-size-base;
+    font-family: $font-family;
+    transition: all $transition-base;
+    background: $bg-card;
 
     &:focus {
       outline: none;
-      border-color: #667eea;
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    }
+
+    &:disabled {
+      background: $gray-lighter;
+      cursor: not-allowed;
     }
   }
 
   .error {
     display: block;
-    color: #ff4757;
-    font-size: 0.85rem;
-    margin-top: 0.5rem;
+    color: $error;
+    font-size: $font-size-xs;
+    margin-top: $spacing-xs;
+    font-weight: 500;
   }
 }
 
+// Form rows
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: $spacing-md;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 
+// Button
 .btn-primary {
   width: 100%;
-  padding: 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: $spacing-md $spacing-lg;
+  background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
+  border-radius: $radius-md;
+  font-size: $font-size-base;
+  font-weight: 700;
+  font-family: $font-family;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  margin-top: 1rem;
+  transition: all $transition-base;
+  margin-top: $spacing-lg;
+  box-shadow: $shadow-md;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 
   &:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    box-shadow: $shadow-xl;
+    background: linear-gradient(135deg, $primary 0%, color-mix(in srgb, $primary 85%, black) 100%);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
   }
 
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
+    transform: none;
+  }
+}
+
+// Animations
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
