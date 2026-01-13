@@ -56,18 +56,16 @@ export class UserRegisterComponent {
 
     const userData: User = this.registerForm.value;
 
-    // this.userService.createUser(userData).subscribe({
-    //   next: (response) => {
-    //     this.successMessage = `Usuário ${response.name} criado com sucesso!`;
-    //     this.registerForm.reset();
-    //     this.loading = false;
-    //   },
-    //   error: (error) => {
-    //     this.errorMessage = error.error?.message || 'Erro ao criar usuário';
-    //     this.loading = false;
-    //   }
-    // });
-
-    console.log('User Data:', userData);
+    this.userService.createUser(userData).subscribe({
+      next: (response) => {
+        this.successMessage = `Usuário ${response.name} criado com sucesso!`;
+        this.registerForm.reset();
+        this.loading = false;
+      },
+      error: (error) => {
+        this.errorMessage = error.error?.message || 'Erro ao criar usuário';
+        this.loading = false;
+      }
+    });
   }
 }
