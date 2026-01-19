@@ -69,7 +69,7 @@ export class UserRegisterComponent {
         this.loading = false;
         this.registerForm.reset();
         
-        // Redireciona para dashboard após 1.5 segundos (usuário já está logado)
+        // Redirect to dashboard after 1.5 seconds (user is already logged in)
         setTimeout(() => {
           this.router.navigate([ROUTE_PATHS.dashboard]);
         }, 1500);

@@ -46,7 +46,7 @@ export class LoginComponent {
           this.successMessage = this.messageService.translate(response.code);
           this.loading = false;
           
-          // Redireciona após 1.5 segundos
+          // Redirect after 1.5 seconds
           setTimeout(() => {
             this.router.navigate([ROUTE_PATHS.dashboard]);
           }, 1500);
@@ -54,7 +54,7 @@ export class LoginComponent {
         error: (httpError: HttpErrorResponse) => {
           const apiError = httpError.error as ApiError;
           
-          // Trata erros de validação
+          // Handle validation errors
           if (apiError.error?.details && apiError.error.details.length > 0) {
             this.errorMessage = apiError.error.details
               .map(err => `${err.field}: ${err.message}`)
@@ -67,7 +67,7 @@ export class LoginComponent {
         }
       });
     } else {
-      // Marca todos os campos como touched para mostrar erros
+      // Mark all fields as touched to show errors
       Object.keys(this.loginForm.controls).forEach(key => {
         this.loginForm.get(key)?.markAsTouched();
       });

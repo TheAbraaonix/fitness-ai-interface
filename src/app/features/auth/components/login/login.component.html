@@ -3,12 +3,12 @@
     <h1>FitAI Coach</h1>
     <p class="subtitle">Faça login para continuar</p>
 
-    <!-- Mensagem de sucesso -->
+    <!-- Success message -->
     <div *ngIf="successMessage" class="alert alert-success">
       {{ successMessage }}
     </div>
 
-    <!-- Mensagem de erro -->
+    <!-- Error message -->
     <div *ngIf="errorMessage" class="alert alert-error">
       {{ errorMessage }}
     </div>
@@ -50,7 +50,7 @@
         </span>
       </div>
 
-      <!-- Botão Submit -->
+      <!-- Submit button -->
       <button
         type="submit"
         class="btn-primary"
@@ -59,7 +59,7 @@
         {{ loading ? 'Entrando...' : 'Entrar' }}
       </button>
 
-      <!-- Link para registro -->
+      <!-- Register link -->
       <div class="footer-links">
         <p>Não tem uma conta? <a routerLink="/register">Cadastre-se</a></p>
       </div>

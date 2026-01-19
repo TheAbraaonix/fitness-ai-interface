@@ -3,7 +3,7 @@
     <h1>Cadastro de Usuário</h1>
     <p class="subtitle">Preencha os dados abaixo</p>
 
-    <!-- Mensagens -->
+    <!-- Messages -->
     <div class="alert alert-success" *ngIf="successMessage">
       {{ successMessage }}
     </div>
@@ -12,7 +12,7 @@
       {{ errorMessage }}
     </div>
 
-    <!-- Formulário -->
+    <!-- Form -->
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       
       <h3>Dados Básicos</h3>
