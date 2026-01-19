@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { UserService } from '../../services/user.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User, FitnessGoal, FitnessLevel } from '../../models/user.model';
+import { AuthService } from '../../services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ROUTE_PATHS } from '../../../../app.paths';
+import { ApiError } from '../../../../core/models/api-error.model';
+import { MessageService } from '../../../../core/services/message.service';
 
 @Component({
   selector: 'app-user-register',
@@ -17,7 +22,7 @@ export class UserRegisterComponent {
 
   fitnessGoals = [
     { value: FitnessGoal.WEIGHT_LOSS, label: 'Emagrecimento' },
-    { value: FitnessGoal.MUSCLE_GAIN, label: 'Hipertrofia' },
+    { value: FitnessGoal.HYPERTROPHY, label: 'Hipertrofia' },
     { value: FitnessGoal.MAINTENANCE, label: 'Manutenção' }
   ];
 
@@ -29,7 +34,9 @@ export class UserRegisterComponent {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService
+    private authService: AuthService,
+    private messageService: MessageService,
+    private router: Router
   ) {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -56,14 +63,26 @@ export class UserRegisterComponent {
 
     const userData: User = this.registerForm.value;
 
-    this.userService.createUser(userData).subscribe({
+    this.authService.register(userData).subscribe({
       next: (response) => {
-        this.successMessage = `Usuário ${response.name} criado com sucesso!`;
-        this.registerForm.reset();
+        this.successMessage = this.messageService.translate(response.code);
         this.loading = false;
+        this.registerForm.reset();
+        
+        // Redireciona para dashboard após 1.5 segundos (usuário já está logado)
+        setTimeout(() => {
+          this.router.navigate([ROUTE_PATHS.dashboard]);
+        }, 1500);
       },
-      error: (error) => {
-        this.errorMessage = error.error?.message || 'Erro ao criar usuário';
+      error: (httpError: HttpErrorResponse) => {
+        const apiError = httpError.error as ApiError;
+
+        if(apiError.error.details && apiError.error.details.length > 0) {
+          this.errorMessage = apiError.error.details
+            .map(err => `${err.field}: ${err.message}`)
+            .join(', ');
+        }
+        
         this.loading = false;
       }
     });
