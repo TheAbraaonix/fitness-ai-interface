@@ -81,6 +81,8 @@ export class UserRegisterComponent {
           this.errorMessage = apiError.error.details
             .map(err => `${err.field}: ${err.message}`)
             .join(', ');
+        } else {
+          this.errorMessage = this.messageService.translate(apiError.error.code);
         }
         
         this.loading = false;
