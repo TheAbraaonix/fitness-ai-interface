@@ -1,6 +1,9 @@
 import { Route } from '@angular/router';
 import { UserRegisterComponent } from './features/auth/components/user-register/user-register.component';
 import { LoginComponent } from './features/auth/components/login/login.component';
+import { DashboardComponent } from './features/dashboard/components/dashboard.component';
+import { authGuard } from './core/guards/auth.guard';
+import { guestGuard } from './core/guards/guest.guard';
 import { ROUTE_PATHS } from './app.paths';
 
 export const appRoutes: Route[] = [
@@ -11,11 +14,18 @@ export const appRoutes: Route[] = [
   },
   {
     path: ROUTE_PATHS.login,
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [guestGuard]
   },
   {
     path: ROUTE_PATHS.register,
-    component: UserRegisterComponent
+    component: UserRegisterComponent,
+    canActivate: [guestGuard]
+  },
+  {
+    path: ROUTE_PATHS.dashboard,
+    component: DashboardComponent,
+    canActivate: [authGuard]
   },
   {
     path: ROUTE_PATHS.wildcard,

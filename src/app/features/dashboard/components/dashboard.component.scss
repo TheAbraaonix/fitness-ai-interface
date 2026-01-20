@@ -1,0 +1,232 @@
+@use '../../../../styles/variables' as *;
+
+.dashboard-container {
+  min-height: 100vh;
+  background: $bg-primary;
+}
+
+// Navbar
+.navbar {
+  background: white;
+  box-shadow: $shadow-sm;
+  padding: $spacing-md $spacing-lg;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .navbar-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo h2 {
+    color: $primary;
+    margin: 0;
+    font-size: $font-size-xl;
+    font-weight: 700;
+  }
+
+  .user-menu {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+
+    .user-name {
+      color: $dark;
+      font-weight: 600;
+      font-size: $font-size-base;
+    }
+
+    .user-role {
+      background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+      color: white;
+      padding: $spacing-xs $spacing-sm;
+      border-radius: $radius-md;
+      font-size: $font-size-xs;
+      font-weight: 700;
+    }
+
+    .btn-logout {
+      background: transparent;
+      border: 2px solid $error;
+      color: $error;
+      padding: $spacing-sm $spacing-md;
+      border-radius: $radius-md;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all $transition-base;
+      font-family: $font-family;
+
+      &:hover {
+        background: $error;
+        color: white;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+// Main Content
+.main-content {
+  padding: $spacing-xxl $spacing-lg;
+
+  .content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+// Welcome Section
+.welcome-section {
+  margin-bottom: $spacing-xxl;
+
+  h1 {
+    color: $dark;
+    font-size: $font-size-xxl;
+    font-weight: 700;
+    margin-bottom: $spacing-lg;
+  }
+
+  .user-info {
+    background: white;
+    padding: $spacing-lg;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-sm;
+
+    p {
+      margin: $spacing-sm 0;
+      color: $gray-dark;
+      font-size: $font-size-base;
+
+      strong {
+        color: $dark;
+      }
+    }
+  }
+}
+
+// Statistics Section
+.stats-section {
+  margin-bottom: $spacing-xxl;
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-lg;
+  }
+
+  .stat-card {
+    background: white;
+    padding: $spacing-xl;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-sm;
+    display: flex;
+    align-items: center;
+    gap: $spacing-lg;
+    transition: all $transition-base;
+
+    &:hover {
+      box-shadow: $shadow-md;
+      transform: translateY(-4px);
+    }
+
+    .stat-icon {
+      font-size: 3rem;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba($primary, 0.1) 0%, rgba($primary, 0.05) 100%);
+      border-radius: $radius-lg;
+    }
+
+    .stat-content {
+      flex: 1;
+
+      h3 {
+        color: $gray;
+        font-size: $font-size-sm;
+        font-weight: 600;
+        margin: 0 0 $spacing-xs 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .stat-value {
+        color: $dark;
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Construction Section
+.construction-section {
+  .construction-card {
+    background: white;
+    padding: $spacing-xxl;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-sm;
+    text-align: center;
+
+    h2 {
+      color: $dark;
+      font-size: $font-size-xl;
+      margin-bottom: $spacing-md;
+    }
+
+    p {
+      color: $gray;
+      font-size: $font-size-base;
+      margin-bottom: $spacing-xl;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: left;
+
+      li {
+        padding: $spacing-sm 0;
+        color: $gray-dark;
+        font-size: $font-size-base;
+        border-bottom: 1px solid $gray-lighter;
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .navbar {
+    .user-menu {
+      flex-direction: column;
+      align-items: flex-end;
+      gap: $spacing-sm;
+
+      .user-name {
+        font-size: $font-size-sm;
+      }
+    }
+  }
+
+  .welcome-section h1 {
+    font-size: $font-size-xl;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

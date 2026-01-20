@@ -1,0 +1,80 @@
+<div class="dashboard-container">
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-content">
+      <div class="logo">
+        <h2>FitAI Coach</h2>
+      </div>
+      
+      <div class="user-menu" *ngIf="currentUser">
+        <span class="user-name">{{ currentUser.name }}</span>
+        <span class="user-role" *ngIf="isAdmin">👑 Admin</span>
+        <button class="btn-logout" (click)="onLogout()">
+          Sair
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="content-wrapper">
+      
+      <!-- Welcome Section -->
+      <section class="welcome-section">
+        <h1>👋 Bem-vindo, {{ firstName }}!</h1>
+        <div class="user-info" *ngIf="currentUser">
+          <p><strong>📧 Email:</strong> {{ currentUser.email }}</p>
+          <p><strong>👤 Role:</strong> {{ currentUser.role }}</p>
+          <p><strong>🔑 User ID:</strong> {{ currentUser.userId }}</p>
+        </div>
+      </section>
+
+      <!-- Statistics Cards -->
+      <section class="stats-section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">🏋️</div>
+            <div class="stat-content">
+              <h3>Treinos</h3>
+              <p class="stat-value">{{ stats.workouts }}</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">💪</div>
+            <div class="stat-content">
+              <h3>Exercícios</h3>
+              <p class="stat-value">{{ stats.exercises }}</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">📊</div>
+            <div class="stat-content">
+              <h3>Progresso</h3>
+              <p class="stat-value">{{ stats.progress }}%</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Under Construction Message -->
+      <section class="construction-section">
+        <div class="construction-card">
+          <h2>🚧 Dashboard em construção</h2>
+          <p>Novas funcionalidades serão adicionadas em breve!</p>
+          <ul>
+            <li>✅ Autenticação JWT funcionando</li>
+            <li>✅ Proteção de rotas (AuthGuard)</li>
+            <li>✅ Logout funcional</li>
+            <li>⏳ Lista de exercícios</li>
+            <li>⏳ Criação de treinos</li>
+            <li>⏳ Sugestões de IA</li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
